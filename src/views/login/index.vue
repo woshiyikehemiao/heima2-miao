@@ -62,14 +62,10 @@ export default {
             data: this.loginform
           }).then(res => {
             console.log(res)
-            if (res.status === 201) {
-              window.localStorage.setItem('user-token', res.data.data.token)
-              this.$router.push({
-                path: '/home'
-              })
-            }
-          }).catch(err => {
-            console.log(err)
+            window.localStorage.setItem('user-token', res.data.token)
+            this.$router.push({
+              path: '/home'
+            })
           })
         } else {
           this.$message({

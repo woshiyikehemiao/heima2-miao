@@ -8,8 +8,8 @@
               <el-form-item prop="mobile">
                   <el-input placeholder="请输入手机号" v-model="loginform.mobile"></el-input>
               </el-form-item>
-              <el-form-item prop="number">
-                  <el-input placeholder="请输入验证码" class="inp2" v-model="loginform.number"></el-input>
+              <el-form-item prop="code">
+                  <el-input placeholder="请输入验证码" class="inp2" v-model="loginform.code"></el-input>
                   <el-button class="btn1">发送验证码</el-button>
               </el-form-item>
               <el-form-item prop="status">
@@ -36,14 +36,14 @@ export default {
     return {
       loginform: {
         mobile: '',
-        number: '',
+        code: '',
         status: false
       },
       loginrules: {
         mobile: [{ required: true, message: '电话号码不能为空' }, {
           pattern: /^1[3456789]\d{9}$/, message: '电话号码为十一位数字'
         }],
-        number: [{ required: true, message: '验证码不能为空' }, {
+        code: [{ required: true, message: '验证码不能为空' }, {
           pattern: /^\d{6}$/, message: '验证码为六位数字'
         }],
         status: [{
@@ -56,14 +56,28 @@ export default {
     checkall () {
       this.$refs.login.validate(isOk => {
         if (isOk) {
-          alert('right')
+          this.$axios({
+            method: 'post',
+            url: '/authorizations',
+            data: this.loginform
+          }).then(res => {
+            console.log(res)
+            if (res.status === 201) {
+              window.localStorage.setItem('user-token', res.data.data.token)
+              this.$router.push({
+                path: '/home'
+              })
+            }
+          }).catch(err => {
+            console.log(err)
+          })
         } else {
           this.$message({
             type: 'warning',
             message: '请正确填写信息'
           })
           this.loginform.mobile = ''
-          this.loginform.number = ''
+          this.loginform.code = ''
         }
       })
     }

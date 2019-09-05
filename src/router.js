@@ -21,6 +21,9 @@ export default new Router({
       }, {
         path: 'comment',
         component: () => import(/* webpackChunkName: "about" */ './views/comment')
+      }, {
+        path: 'material',
+        component: () => import(/* webpackChunkName: "about" */ './views/material')
       }]
     },
     {

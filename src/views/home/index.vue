@@ -7,7 +7,7 @@
 <el-header>
 <layout-header></layout-header>
 </el-header>
-<el-main>
+<el-main class="main">
 <router-view></router-view>
 </el-main>
 </el-container>
@@ -23,5 +23,8 @@ export default {
 <style lang="less" scoped>
 .aside{
     overflow: hidden;
+}
+.main{
+    padding: 0;
 }
 </style>

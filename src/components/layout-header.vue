@@ -4,17 +4,17 @@
     <i class="el-icon-s-unfold"></i>
     <span>江苏传智播客教育科技股份有限公司</span>
   </el-col>
-  <el-col :span="3" class="col2">
-    <img :src="user.url?user.url:defaultImg" alt="">
-    <el-dropdown trigger="click" class="dropdown">
+  <el-col :span="4" class="col2">
+    <img :src="user.photo?user.photo:defaultImg" alt="">
+    <el-dropdown trigger="click" class="dropdown" @command="handleCommand">
       <span class="el-dropdown-link">
         <span>{{user.name}}</span>
         <i class="el-icon-arrow-down el-icon--right"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item icon="el-icon-plus">个人信息</el-dropdown-item>
-        <el-dropdown-item icon="el-icon-circle-plus">git地址</el-dropdown-item>
-        <el-dropdown-item icon="el-icon-circle-plus-outline">退出</el-dropdown-item>
+        <el-dropdown-item command="user">个人信息</el-dropdown-item>
+        <el-dropdown-item command="git">git地址</el-dropdown-item>
+        <el-dropdown-item command="quit">退出</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
   </el-col>
@@ -25,21 +25,27 @@
 export default {
   data () {
     return {
-      user: {
-        name: '',
-        url: ''
-      },
+      user: {},
       defaultImg: require('../assets/img/avatar.jpg')
     }
   },
   methods: {
+    handleCommand (command) {
+      if (command === 'quit') {
+        window.localStorage.clear()
+        this.$router.push('/home/login')
+      } else if (command === 'git') {
+        window.location.href = 'https://github.com/shuiruohanyu/81heimatoutiao'
+      } else {
+        // 进入个人信息
+      }
+    },
     getuserdata () {
       this.$axios({
         url: '/user/profile'
       }).then(res => {
         console.log(res)
-        this.user.url = res.data.photo
-        this.user.name = res.data.name
+        this.user = res.data
       })
     }
   },
@@ -64,6 +70,7 @@ export default {
     }
   }
   .col2{
+    float: right;
     img{
       vertical-align: middle;
       width: 35px;

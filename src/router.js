@@ -18,6 +18,9 @@ export default new Router({
       children: [{
         path: '',
         component: Main
+      }, {
+        path: 'comment',
+        component: () => import(/* webpackChunkName: "about" */ './views/comment')
       }]
     },
     {

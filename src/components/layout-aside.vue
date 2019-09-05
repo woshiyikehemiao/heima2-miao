@@ -1,5 +1,6 @@
 <template>
 <el-menu
+      class="menu"
       background-color=" #323745"
       text-color="#adafb5"
       active-text-color="#ffd04b">
@@ -44,11 +45,17 @@ export default {
 </script>
 
 <style lang='less' scoped>
-.logo{
-    padding: 10px 0;
-    text-align: center;
-    img{
-        height: 30px;
-    }
+.menu{
+  height: 100%;
+  min-height: 100vh;
+  width: 200px;
+  .logo{
+      background-color: #2e2f32;
+      padding: 10px 0;
+      text-align: center;
+      img{
+          height: 30px;
+      }
+  }
 }
 </style>

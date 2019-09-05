@@ -1,6 +1,6 @@
 <template>
 <el-container>
-<el-aside>
+<el-aside style="width:200px" class="aside">
 <layout-aside></layout-aside>
 </el-aside>
 <el-container>
@@ -20,6 +20,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="less" scoped>
+.aside{
+    overflow: hidden;
+}
 </style>
